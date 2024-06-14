@@ -13,5 +13,3 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS user_credentials (
 
 conn.commit()
 conn.close()
-
-#hello
