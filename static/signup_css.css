@@ -1,0 +1,58 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    padding-left: 50%;
+    background-image: url('../static/ipl_logo.jpg');
+    background-size: 60%;
+}
+
+.login-container {
+    background-color: #fff;
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-color: black;
+    box-shadow: inset;
+    border: 2px solid black;
+}
+
+h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="password"],
+button {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #1877f2;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #166fe5;
+}
+
+#back-to-login{
+    color: black;
+    text-decoration: none;
+}

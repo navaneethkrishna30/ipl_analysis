@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="../static/signup_css.css">
+    <script src="signup_js.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Sign Up</h1>
+        <form id="signup-form" onsubmit="return handleSubmit(event)" method="post">
+            <input type="text" name='user_name' placeholder="User Name">
+            <input type="text" id="email" name='email' placeholder="Email Address">
+            <input type="password" id="password" name='password' placeholder="Password">
+            <button type="submit">Create</button>
+        </form>
+        <div id="success-message" style="display: none; color: green;">Successfully created! <a href="login.html" id="back-to-login">Go back to login page</a></div>
+    </div>
+</body>
+</html>
