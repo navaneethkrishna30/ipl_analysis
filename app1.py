@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import sqlite3
+from ipl_analysis_ml import get_ans
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Set your secret key for flashing messages
@@ -7,10 +8,7 @@ app.secret_key = 'your_secret_key_here'  # Set your secret key for flashing mess
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv(r'C:\Users\Hp\Desktop\projects\ipl_analysis\ipl_dataset\matches.csv')
-venues = list(data['venue'].drop_duplicates())
-team1=list(data['team1'].drop_duplicates())
-toss=list(data['toss'].drop_duplicates())
+
 
 
 # Function to check if the provided credentials are valid
@@ -76,26 +74,30 @@ def login():
 
 @app.route('/home',methods=['GET','POST'])
 def home():
+    data = pd.read_csv(r'C:\Users\Hp\Desktop\projects\ipl_analysis\ipl_dataset\matches.csv')
+    venues = list(data['venue'].drop_duplicates())
+    team_list=list(data['team1'].drop_duplicates())
+    ans=" "
     if request.method == 'POST':
         team1=request.form.get("team1")
         team2=request.form.get("team2")
         toss=request.form.get("toss")
         stadium=request.form.get("stadium")
+        ans=get_ans(team1,team2,toss,stadium)
+        print(ans)
         conn = sqlite3.connect('users.db')
         cursor = conn.cursor()
         hist = team1 +" vs "+ team2
         global user_id
-        cursor.execute("INSERT INTO history (User_ID, History) VALUES (?, ?)", (user_id, hist))
-        conn.commit()
-        return redirect(url_for('home'))
-    else:
-        conn = sqlite3.connect('users.db')
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM history ORDER BY id DESC LIMIT 4")
-        records = cursor.fetchall()
-        print(records)
-        conn.close()
-        return render_template('home.html',records=records)
+        cursor.execute("INSERT INTO history (User_ID, History, Result) VALUES (?, ?, ?)", (user_id, hist, ans))
+        conn.commit() 
+    conn = sqlite3.connect('users.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM history ORDER BY id DESC LIMIT 4")
+    records = cursor.fetchall()
+    print(records)
+    conn.close()
+    return render_template('home.html',records=records, venues=venues, teams=team_list, ans=ans)
 
 # @app.route('/home')
 # def home():

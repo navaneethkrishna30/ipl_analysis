@@ -8,15 +8,28 @@
 <body>
     Hi User
     <form method="post">
-        Team-1 <br>
-        <input type="text" name="team1" id="team1"><br>
-        Team-2<br>
-        <input type="text" name="team2" id="team2"><br>
-        Toss Winner<br>
-        <input type="text" name="toss" id="toss"><br>
-        Stadium<br>
-        <input type="text" name="stadium" id="stadium"><br><br>
-        <button>Get Results</button>
+        <label for="team1">Team1</label><br>
+        <select name="team1" id="team1" >
+            {% for i in teams %}
+            <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+        </select><br>
+        <label for="team2">Team2</label><br>
+        <select name="team2" id="team2">
+            {% for i in teams %}
+            <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+        </select><br>
+        Toss<br>
+        <input type="text" name="toss">
+        <label for="venue">Venue</label><br>
+        <select name="venue" id="venue">
+            {% for i in venues %}
+            <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+        </select><br>
+        <button>Get Results</button><br><br><br>
+        {{ans}}
     </form>
     <div class="history">
         <h2>History</h2>
@@ -28,6 +41,7 @@
             {% for record in records %}
             <tr>
                 <td>{{ record[2] }}</td>
+                <td>{{ record[3] }}</td>
             </tr>
             {% endfor %}
         </table>
