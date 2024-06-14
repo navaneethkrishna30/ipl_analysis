@@ -7,6 +7,30 @@
 </head>
 <body>
     Hi User
-    <a href="/signup"><button>signup</button></a>
+    <form method="post">
+        Team-1 <br>
+        <input type="text" name="team1" id="team1"><br>
+        Team-2<br>
+        <input type="text" name="team2" id="team2"><br>
+        Toss Winner<br>
+        <input type="text" name="toss" id="toss"><br>
+        Stadium<br>
+        <input type="text" name="stadium" id="stadium"><br><br>
+        <button>Get Results</button>
+    </form>
+    <div class="history">
+        <h2>History</h2>
+        <table border="1" align="center">
+            <tr>
+                <th>Versus</th>
+                <th>Result</th>
+            </tr>
+            {% for record in records %}
+            <tr>
+                <td>{{ record[2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
 </html>

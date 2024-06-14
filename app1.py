@@ -4,6 +4,15 @@ import sqlite3
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Set your secret key for flashing messages
 
+import pandas as pd
+import numpy as np
+
+data = pd.read_csv(r'C:\Users\Hp\Desktop\projects\ipl_analysis\ipl_dataset\matches.csv')
+venues = list(data['venue'].drop_duplicates())
+team1=list(data['team1'].drop_duplicates())
+toss=list(data['toss'].drop_duplicates())
+
+
 # Function to check if the provided credentials are valid
 def authenticate_user(username, password):
     conn = sqlite3.connect('users.db')
@@ -40,7 +49,7 @@ def signup():
         conn.close()
         return redirect(url_for('home'))
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
         return render_template("login.html")
@@ -53,14 +62,44 @@ def login():
         if user:
             flash('Login successful!', category='success')
             # Here you can perform additional tasks like setting up session variables
+            conn = sqlite3.connect('users.db')
+            cursor = conn.cursor()
+            global user_id
+            cursor.execute("select id from user_credentials where username=(?)",(username,))
+            user_tuple=cursor.fetchone()
+            user_id = user_tuple[0]
             return redirect(url_for('home'))
         else:
             flash('Invalid username or password', category='error')
             return redirect(url_for('login'))
+        
 
-@app.route('/')
+@app.route('/home',methods=['GET','POST'])
 def home():
-    return render_template("home.html")
+    if request.method == 'POST':
+        team1=request.form.get("team1")
+        team2=request.form.get("team2")
+        toss=request.form.get("toss")
+        stadium=request.form.get("stadium")
+        conn = sqlite3.connect('users.db')
+        cursor = conn.cursor()
+        hist = team1 +" vs "+ team2
+        global user_id
+        cursor.execute("INSERT INTO history (User_ID, History) VALUES (?, ?)", (user_id, hist))
+        conn.commit()
+        return redirect(url_for('home'))
+    else:
+        conn = sqlite3.connect('users.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM history ORDER BY id DESC LIMIT 4")
+        records = cursor.fetchall()
+        print(records)
+        conn.close()
+        return render_template('home.html',records=records)
+
+# @app.route('/home')
+# def home():
+#     return render_template("home.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
