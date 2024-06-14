@@ -105,7 +105,7 @@ def get_ans(team1,team2,toss,venue):
     predicted_winner_encoded = rf_model.predict(input_features)[0]
     predicted_winner = label_encoder_team.inverse_transform([predicted_winner_encoded])[0]
 
-    return predicted_winner
+    return "Winner is {}".format(predicted_winner)
 
 
 # In[ ]:

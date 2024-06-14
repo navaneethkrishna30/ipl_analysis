@@ -97,7 +97,7 @@ def home():
     records = cursor.fetchall()
     print(records)
     conn.close()
-    return render_template('home.html',records=records, venues=venues, teams=team_list, ans=ans)
+    return render_template('home.html', records=records, venues=venues, teams=team_list, ans=ans)
 
 # @app.route('/home')
 # def home():

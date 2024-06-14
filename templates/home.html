@@ -3,34 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/home.css">
     <title>IPL</title>
 </head>
 <body>
-    Hi User
-    <form method="post">
-        <label for="team1">Team1</label><br>
-        <select name="team1" id="team1" >
-            {% for i in teams %}
-            <option value="{{i}}">{{i}}</option>
-            {% endfor %}
-        </select><br>
-        <label for="team2">Team2</label><br>
-        <select name="team2" id="team2">
-            {% for i in teams %}
-            <option value="{{i}}">{{i}}</option>
-            {% endfor %}
-        </select><br>
-        Toss<br>
-        <input type="text" name="toss">
-        <label for="venue">Venue</label><br>
-        <select name="venue" id="venue">
-            {% for i in venues %}
-            <option value="{{i}}">{{i}}</option>
-            {% endfor %}
-        </select><br>
-        <button>Get Results</button><br><br><br>
-        {{ans}}
-    </form>
+    <div class="home-container">
+        <form method="post">
+            <label for="team1"><b>Team1</b></label><br>
+            <select name="team1" id="team1" >
+                {% for i in teams %}
+                <option value="{{i}}">{{i}}</option>
+                {% endfor %}
+            </select><br>
+            <label for="team2"><b>Team2</b></label><br>
+            <select name="team2" id="team2">
+                {% for i in teams %}
+                <option value="{{i}}">{{i}}</option>
+                {% endfor %}
+            </select><br>
+            <b>Toss</b><br>
+            <input type="text" name="toss">
+            <label for="venue"><b>Venue</b></label><br>
+            <select name="venue" id="venue">
+                {% for i in venues %}
+                <option value="{{i}}">{{i}}</option>
+                {% endfor %}
+            </select><br><br>
+            <button>Get Results</button><br><br>
+            {{ans}}
+        </form>
+    </div>
     <div class="history">
         <h2>History</h2>
         <table border="1" align="center">
