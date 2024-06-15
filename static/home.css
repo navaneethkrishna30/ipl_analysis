@@ -5,12 +5,12 @@ body {
     background-color: #f0f2f5;
     /*padding-left: 50%;*/
     background-image: url('../static/stadium.jpg');
-    background-size: 135%;
+    background-size: 140%;
 }
 .home-container{
     background-color: #fff;
     max-width: 400px;
-    margin: 100px auto;
+    margin: 50px auto;
     padding: 50px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -52,4 +52,7 @@ button:hover {
 }
 .history td{
     padding: 10px;
+}
+.name{
+    text-align: center;
 }

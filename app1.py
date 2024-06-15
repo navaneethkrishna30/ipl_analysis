@@ -10,7 +10,6 @@ import numpy as np
 
 
 
-
 # Function to check if the provided credentials are valid
 def authenticate_user(username, password):
     conn = sqlite3.connect('users.db')
@@ -63,9 +62,12 @@ def login():
             conn = sqlite3.connect('users.db')
             cursor = conn.cursor()
             global user_id
-            cursor.execute("select id from user_credentials where username=(?)",(username,))
-            user_tuple=cursor.fetchone()
-            user_id = user_tuple[0]
+            cursor.execute("select id,username from user_credentials where username=(?)",(username,))
+            user_tuple=cursor.fetchmany()
+            info = user_tuple[0]
+            user_id = info[0]
+            global name_of_user
+            name_of_user = info[1]
             return redirect(url_for('home'))
         else:
             flash('Invalid username or password', category='error')
@@ -97,7 +99,7 @@ def home():
     records = cursor.fetchall()
     print(records)
     conn.close()
-    return render_template('home.html', records=records, venues=venues, teams=team_list, ans=ans)
+    return render_template('home.html', name=name_of_user, records=records, venues=venues, teams=team_list, ans=ans)
 
 # @app.route('/home')
 # def home():
