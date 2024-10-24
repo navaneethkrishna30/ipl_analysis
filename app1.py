@@ -76,7 +76,7 @@ def login():
 
 @app.route('/home',methods=['GET','POST'])
 def home():
-    data = pd.read_csv(r'C:\Users\Hp\Desktop\projects\ipl_analysis\ipl_dataset\matches.csv')
+    data = pd.read_csv(r'ipl_dataset/matches.csv')
     venues = list(data['venue'].drop_duplicates())
     team_list=list(data['team1'].drop_duplicates())
     ans=" "
